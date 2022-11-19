@@ -1,0 +1,90 @@
+===============================================================================
+Profeanu Ioana, 313CA
+===============================================================================
+
+                            Tema MN 2021
+                    Interpolare aplicata pe imagini
+
+===============================================================================
+   ~ Detalii despre implementarea functiilor pentru fiecare tip de interpolare
+folosite pentru image processing:
+_______________________________________________________________________________
+   1. Interpolarea Nearest-neighbour:
+
+   ~ nn_2x2: defineste punctele intermediare si punctele incadratoare; pentru
+ fiecare pixel din imaginea finala, calculeaza cel mai apropiat pixel vecin
+ din imaginea initiala, rotunjind valoarea punctelor intermediare de pe
+ pozitia pixelului respectiv;
+   ~ nn_resize: calculeaza factorii de scalare s_x si s_y; parcurge fiecare
+ pixel din imaginea redimensionata si calculeaza x_p si y_p din imaginea ini-
+ tiala (din formula x_0 = x_i * s_x scoatem x_i); apoi calculeaza cel mai
+ apropiat pixel vecin, rotunjind valoarea lui x_p si y_p, dupa care adauga
+ pixelul nou calculat in imaginea redimensionata;
+   ~ nn_2x2_RGB, nn_resize_RGB: extrage din matricea initiala img canalul pen-
+ tru fiecare culoare, apoi aplica functia nn_2x2 sau nn_resize_RGB pentru fiecare
+ culoare; concateneaza matricile rezultate din apelul functiilor intr-o matrice
+ rezultat, ce contine intreaga imagine RGB interpolata sau redimensionata;
+_______________________________________________________________________________
+   2. Interpolarea Bilinear:
+
+   ~ bilinear_coef: calculeaza coeficientii de interpolare bilineara pentru 4
+ puncte alaturate conform formulei date, utilizand matricile intermediare;
+   ~ surrounding_points: calculeaza punctele ce inconjoara punctul de coordona-
+ te x si y, verificand ca valorile acestora sa nu iasa din matricea imagine;
+   ~ bilinear_2x2: defineste punctele intermediare si punctele incadratoare;
+ pentru fiecare pixel din imaginea finala, calculeaza valoarea utilizand
+ formula data, cu ajutorul coeficientilor de interpolare biliniara;
+   ~ bilinear_resize: calculeaza factorii de scalare s_x si s_y; parcurge fie-
+ care pixel din imaginea redimensionata si calculeaza x_p si y_p din imaginea
+ initiala (din formula x_0 = x_i * s_x scoatem x_i); apoi calculeaza valoarea
+ pixelului conform formulei date, utilizand punctele inconjuratoare, coefi-
+ cientii biliniari si x_p si y_p, dupa care adaugam pixelul nou calculat in
+ imaginea redimensionata;
+   ~ bilinear_rotate: calculeaza sinusul si cosinusul unghiului de rotatie,
+ matricea de transformare si inversa sa; parcurge fiecare pixel din imaginea
+ rotita si calculeaza x_p si y_p conform formulei, utilizand inversa matricei
+ de transformare si indicii x si y; daca x_p si y_p sunt in afara imaginii,
+ pixelul va fi negru; altfel, ii calculam valoarea utilizand punctele incon-
+ juratoare si coeficientii de interpolare bilineari dupa care adaugam pixelul
+ nou calculat in imaginea redimensionata;
+    ~ bilinear_2x2_RGB, bilinear_resize_RGB, bilinear_rotate_RGB: extrage din 
+ matricea initiala img canalul pentru fiecare culoare, apoi aplica functia
+ omoloaga pentru imaginea alb-negru pentru fiecare dintre culori; concateneaza
+ matricile rezultate din apelul functiilor intr-o matrice rezultat, ce contine
+ intreaga imagine RGB interpolata sau redimensionata;
+_______________________________________________________________________________
+   3. Interpolarea Bicubic:
+
+   ~ precalc_d: precalculeaza matricile Ix, Iy si Ixy cu derivatele dx, dy,
+ dxy, parcurgand imaginea initiala I si apeland functiile fx, fy fxy pentru
+ calcularea valorii derivate a pixelului; daca pixelul se afla la marginea
+ imaginii, derivata va fi 0;
+   ~ fx, fy, fxy: calculeaza derivata dx, dy sau dxy a pixelului din matricea f
+ de la coordonatele x si y conform formulelor date;
+   ~ bicubic_coef: calculeaza coeficientii de interpolare bicubica pentru 4
+ puncte alaturate conform formulei date, utilizand matricile intermediare;
+   ~ surrounding_points: calculeaza punctele ce inconjoara punctul de coordona-
+ te x si y, verificand ca valorile acestora sa nu iasa din matricea imagine;
+   ~ bicubic_resize: calculeaza factorii de scalare s_x si s_y si derivatele; 
+ parcurge fiecare pixel din imaginea redimensionata si calculeaza x_p si y_p
+ din imaginea initiala (din formula x_0 = x_i * s_x scoatem x_i); calculam
+ valoarea noului pixel conform formulei, folosind derivatele, functele vecine
+ si coeficientii bicubici, dupa care adaugam pixelul nou calculat in imaginea 
+ redimensionata;
+   ~ bicubic_resize_RGB: extrage din matricea initiala img canalul pentru fie-
+ care culoare apoi aplica functia bicubic_resize pentru fiecare dintre aceste
+ culori; concateneaza matricile rezultate din apelul functiilor intr-o matrice
+ rezultat, ce contine intreaga imagine RGB redimensionata;
+===============================================================================
+~ Feedback:
+_______________________________________________________________________________
+
+   ~ Tema super interesanta, detaliaza foarte clar si exemplificat tipurile de
+ interpolare (au fost foarte utile explicatiile din enuntul temei, formulele
+ si comentariile din scheletul codului)
+   ~ Personal, pot spune ca am inteles mult mai bine interpolarea acum si
+ cum poate fi folosita pentru image processing
+   ~ Am invatat mult mai bine sa lucrez in Octave dupa aceasta tema ceea ce e
+  un mare plus
+   ~ Keep up the good work! :)
+===============================================================================
